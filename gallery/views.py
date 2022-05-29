@@ -23,7 +23,7 @@ def search_images(request):
         return render(request, 'search.html', {'message': message, 'images': searched_images})
     else:
         message = "You haven't searched for any search term"
-        return render(request, 'search.html', {'message': message})
+    return render(request, 'search.html', {'message': message})
     
     
 def view_category(request, category):

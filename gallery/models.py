@@ -29,7 +29,7 @@ class Category(models.Model):
         
         
 class Image(models.Model):
-    image = CloudinaryField('image')
+    image = models.ImageField(upload_to = 'image/')
     name = models.CharField(max_length=30)
     description = models.TextField()
     location = models.ForeignKey(Location, on_delete=models.CASCADE, default=None)
