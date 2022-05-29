@@ -1,0 +1,148 @@
+{%extends 'base.html'%} {% block content %} {{ block.super}}
+<div class="container-fluid mt-5">
+  <div class="row" data-masonry='{"percentPosition": true}'>
+    {% for image in image %}
+    <div class="col col-xs-12 col-sm-6 col-md-3 col-lg-2">
+      <div class="parent-element">
+        <div
+          class="overlay"
+          data-bs-toggle="modal"
+          data-bs-target="#modal1{{image.id}}"
+        >
+          <h5>{{image.name}}</h5>
+          <div class="text-center">
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#modal2{{image.id}}"
+            >
+              Share
+            </button>
+          </div>
+        </div>
+        <img
+          src="{{image.image.url}}"
+          class="img-responsive img-fluid"
+          alt="Image"
+        />
+      </div>
+    </div>
+
+    <!-- modal -->
+
+    <div
+      class="modal fade"
+      id="modal1{{image.id}}"
+      role="dialog"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="{{image.id}}Label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="{{image.id}}Label">{{image.name}}</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>{{image.description}}</p>
+            <img src="{{image.image.url}}" class="img-fluid" alt="" />
+            <p style="text-align: right">{{image.post_time | timesince}} ago</p>
+          </div>
+          <div
+            class="modal-footer d-flex align-items-center justify-content-end"
+          >
+            <button
+              type="button"
+              class="btn btn-danger"
+              type="button"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="modal2{{image.id}}"
+      role="dialog"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="{{image.id}}Label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="{{image.id}}Label">{{image.name}}</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <img src="{{image.image.url}}" class="img-fluid" alt="" />
+            <h5 style="margin-top: 10px">Copy Url for {{image.name}}</h5>
+            <input type="text" value="{{image.image.url}}" id="{{image.id}}" />
+            <button
+              class="btn btn-outline-primary"
+              onclick="copyUrl('{{image.id}}')"
+            >
+              Copy
+            </button>
+          </div>
+          <div
+            class="modal-footer d-flex align-items-center justify-content-end"
+          >
+            <button
+              type="button"
+              class="btn btn-danger"
+              type="button"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function copyUrl() {
+        /* Get the text field */
+        var copyText = document.getElementById("{{image.id}}");
+        console.log(copyText.value);
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+        /* Copy the text inside the text field */
+        navigator.clipboard.writeText(copyText.value);
+
+        /* Alert the copied text */
+        alert("Copied the text: " + copyText.value);
+      }
+    </script>
+
+    {% empty %}
+    <h2 class="text-center">There are no images to display at the moment</h2>
+
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
