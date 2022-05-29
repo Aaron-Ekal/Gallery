@@ -8,3 +8,6 @@ class Image(models.Model):
     description = models.TextField()
     post_time = models.DateTimeField(auto_now_add=True)
     
+    
+class Location(models.Model):
+    name = models.CharField(max_length=30)
