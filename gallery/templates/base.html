@@ -1,0 +1,53 @@
+{% load bootstrap5 %} {% load static %} {% load cloudinary %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title %}
+    <title>Tellem - {{title}}</title>
+    {% else %}
+    <title>Tellem Gallery</title>
+    {% endif%}
+    {% block styles %}{% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
+    {% endblock %}
+</head>
+<body>
+    {% include 'navbar.html' %} {% block content %} {% endblock %}
+    <!-- block scripts -->
+    {% block scripts %}
+
+    <script>
+      function copyUrl(id) {
+        /* Get the text field */
+        var copyText = document.getElementById(id);
+        console.log(copyText.value);
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+        /* Copy the text inside the text field */
+        navigator.clipboard.writeText(copyText.value);
+
+        /* Alert the copied text */
+        alert("Copied!");
+      }
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+      integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
+      crossorigin="anonymous"
+      async
+    ></script>
+    <script src="../../static/js/app.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.slim.js"
+      integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
+      crossorigin="anonymous"
+    ></script>
+    {% bootstrap_javascript %} {% endblock %}
+</body>
+</html>
