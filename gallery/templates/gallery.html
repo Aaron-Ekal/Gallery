@@ -1,5 +1,6 @@
-<h1>Image Object</h1>
+{% extends 'base.html' %} {%block content%} {{block.super}}
 {% for image in image %}
 {{image.image}}
 <img src="{{ image.image.url}} alt=">
 {% endfor %}
+{% endblock %}
